@@ -1,7 +1,7 @@
 
 # 🏢 Sistema de Gestão de Insumos - Comercial Souza
 
-![GitHub](https://img.shields.io/badge/status-Em%20Desenvolvimento-yellow) 
+![GitHub](https://img.shields.io/badge/status-Em%20Produção-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Flask](https://img.shields.io/badge/Flask-Framework-lightgrey)
 ![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
