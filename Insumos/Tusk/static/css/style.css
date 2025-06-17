@@ -1,0 +1,852 @@
+/* Reset de margin, padding e box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Cor de fundo para todo o corpo */
+body {
+  background: url("https://github.com/SouzaTI/GestaoInsumos/blob/main/background.png?raw=true") no-repeat center center fixed;
+  background-size: cover;
+}
+
+
+/* Estilos do cabeçalho */
+header {
+  height: 150px; /* Altura do cabeçalho */
+  background: transparent; /* Remove a cor de fundo */
+  display: flex; /* Usa flexbox para alinhar os elementos */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  position: relative; /* Permite posicionamento absoluto para os elementos filhos */
+}
+
+/* Estilo para o logo */
+header .logo {
+  position: absolute; /* Permite posicionamento personalizado */
+  top: 30px; /* Ajusta a posição vertical */
+  left: 270px; /* Ajusta a posição horizontal */
+  z-index: 10; /* Controle da sobreposição */
+  width: 250px; /* Aumenta a largura da logo */
+  height: auto; /* Ajusta a altura proporcionalmente */
+  cursor: pointer; /* Mostra o cursor de clique */
+  transition: transform 0.2s ease; /* Adiciona uma transição suave */
+}
+
+header .logo:hover {
+  transform: scale(1.1); /* Aumenta ligeiramente o tamanho ao passar o mouse */
+}
+
+/* Container do conteúdo */
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px; /* Reduz o padding para subir o quadro */
+}
+
+.main-box {
+  display: flex;
+  width: 100%;
+  max-width: 1900px; /* Aumentado de 1600px para 2000px */
+  height: 740px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: -20px; /* Subir o quadro central */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px; /* Menor, mais elegante */
+  background-color: #0d1d3a;
+  color: white;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.sidebar-logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 0 18px 0; /* Mais espaço acima, menos abaixo */
+  background: transparent;
+}
+
+.sidebar-logo .logo {
+  width: 100px;   /* Tamanho mais equilibrado */
+  height: auto;
+  display: block;
+  max-width: 90%;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.18));
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 22px; /* Menos espaço entre os itens */
+  width: 100%;
+  margin-top: 18px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+  font-size: 1.08em;
+}
+
+.sidebar a:hover,.sidebar a.ativo {
+  background-color: #1a2f5a;
+  color: #FFD700;
+}
+
+.sidebar a svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 700px) {
+  .sidebar {
+    width: 70px;
+    min-width: 70px;
+    padding: 0;
+  }
+  .sidebar-logo .logo {
+    width: 48px;
+  }
+  .sidebar nav {
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .sidebar a {
+    font-size: 0;
+    padding: 10px 10px;
+    justify-content: center;
+  }
+  .sidebar a img {
+    margin: 0;
+  }
+}
+
+/* Conteúdo da página */
+.content {
+  background-color: rgb(255, 255, 255);
+  flex: 1;
+  padding: 40px 40px; /* valores ajustados conforme necessário */
+  overflow-y: auto;
+}
+
+/* Ocultar elementos com a classe .hidden */
+.hidden {
+  display: none !important; /* Força a ocultação, evitando conflitos */
+}
+
+/* Formulários */
+form input, form select, form button {
+  margin: 10px 5px;
+  padding: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+th {
+  background-color: #2d5ca8;
+  color: white;
+}
+
+#tabelaEstoque td:first-child,
+#tabelaEntradas td:first-child,
+#tabelaSolicitacoes td:first-child {
+  text-align: left;
+}
+
+
+.baixo-estoque {
+  background-color: #ffcccc; /* Vermelho claro */
+}
+
+.estoque-ok {
+  background-color: #ccffcc; /* Verde claro */
+}
+
+
+/* Animação fade-in */
+.content > div {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.content > div.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Menu ativo */
+.sidebar a.ativo {
+  background-color: #1a2f5a;
+  color: #FFD700;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-left: 4px solid #FFD700;
+}
+
+/* Botão flutuante de copiar */
+.botao-copiar-email {
+  position: absolute;
+  top: 50%; /* Centraliza verticalmente */
+  right: 10px; /* Ajusta a posição à direita */
+  transform: translateY(-50%); /* Centraliza o ícone verticalmente */
+  border: none; /* Remove a borda */
+  background: transparent; /* Fundo transparente */
+  cursor: pointer; /* Mostra o cursor de clique */
+  font-size: 16px; /* Ajusta o tamanho do ícone */
+  color: #2d5ca8; /* Cor azul para o ícone */
+  opacity: 0; /* Esconde o botão por padrão */
+  transition: opacity 0.2s ease; /* Transição suave para aparecer */
+}
+
+td:hover .botao-copiar-email {
+  opacity: 1; /* Faz o botão aparecer ao passar o mouse sobre a célula */
+}
+
+.email-container {
+  z-index: 1;
+}
+
+/* Botão "Atualizar Matriz" */
+.btn-atualizar-matriz {
+  background-color: #2d5ca8;
+  color: white;
+  border: 1px solid #2d5ca8;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.btn-atualizar-matriz:hover {
+  background-color: #1a2f5a;
+  border-color: #1a2f5a;
+  transform: translateY(-2px); /* Efeito de elevação no hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais intensa no hover */
+}
+
+/* Botão "Copiar todos os e-mails" */
+.btn-copiar-todos {
+  background-color: #2d5ca8;
+  color: white;
+  border: 1px solid #2d5ca8;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.btn-copiar-todos:hover {
+  background-color: #1a2f5a;
+  border-color: #1a2f5a;
+  transform: translateY(-2px); /* Efeito de elevação no hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais intensa no hover */
+}
+
+/* Botão Gerar Relatório com o mesmo estilo */
+.btn-relatorio {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-relatorio:hover {
+  background-color: #0056b3;
+}
+
+/* Container dos cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cards quebrem linha */
+  gap: 15px; /* Espaçamento entre os cards */
+  justify-content: center; /* Centraliza os cards horizontalmente */
+  align-items: flex-start; /* Alinha os cards no topo */
+  margin-top: 20px; /* Espaço acima dos cards */
+}
+
+/* Estilo dos cards */
+.card {
+  background: linear-gradient(135deg, #2d5ca8, #1a2f5a); /* Gradiente moderno */
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 250px; /* Largura fixa para os cards */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo do carrossel */
+.carrossel-container {
+  position: relative;
+  width: 100%;
+  height: auto; /* Ajusta a altura dinamicamente com base no conteúdo */
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.carrossel {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* Transição suave */
+}
+
+.carrossel img {
+  width: 100%; /* Cada imagem ocupa 100% da largura do contêiner */
+  height: 100%; /* Cada imagem ocupa 100% da altura do contêiner */
+  object-fit: contain; /* Ajusta a imagem para caber no contêiner sem cortes */
+  background-color: #fff; /* Adiciona um fundo branco para áreas vazias */
+}
+
+/* Animação do carrossel */
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Estilo do título */
+.titulo-aba {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.titulo-centralizado {
+  text-align: center; /* Centraliza o texto horizontalmente */
+  margin-top: 20px; /* Adiciona um espaçamento superior */
+  font-size: 20px; /* Ajusta o tamanho da fonte, se necessário */
+  color: #747474; /* Define uma cor para o texto */
+}
+
+/* Container do form */
+.form-container {
+  max-width: 540px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+  background: #0056b3;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Bloco dos botões de ação */
+.botoes-acao {
+  display: flex;
+  justify-content: center; /* um botão na esquerda, outro na direita */
+  max-width: 600px;
+  margin: 20px auto 0;
+  width: 100%;
+}
+
+.botoes-acao button {
+  padding: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  width: 48%; /* cada botão com cerca de metade da largura, deixando espaço entre */
+  max-width: 280px; /* limite máximo */
+}
+
+
+/* Botões comuns */
+.btn {
+  flex: 1;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cores específicas dos botões */
+.btn-azul {
+  background-color: #007BFF;
+}
+
+.btn-azul:hover {
+  background-color: #0056b3;
+}
+
+.btn-vermelho {
+  background-color: #DC3545;
+}
+
+.btn-vermelho:hover {
+  background-color: #a71d2a;
+}
+
+.form-campos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  max-width: 600px;  /* largura do formulário */
+  margin: 0 auto;    /* centraliza o formulário */
+}
+
+.form-campos select,
+.form-campos input {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 280px; /* Limita a largura máxima dos campos */
+  min-width: 220px; /* Limita a largura mínima dos campos */
+  margin: 0 auto; /* Centraliza o campo dentro da coluna */
+}
+
+.form-campos button {
+  grid-column: span 2;
+  background-color: #28A745;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 12px;
+  width: 100%;
+  max-width: 400px; /* limita largura */
+  margin: 0 auto;   /* centraliza */
+  display: block;   /* necessário para margin auto funcionar */
+}
+
+
+.form-campos button:hover {
+  background-color: #1e7e34;
+}
+
+/* Inputs e selects */
+input[type="number"],
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+/* Modal - Isolado */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  pointer-events: none;
+  backdrop-filter: blur(4px); /* efeito de desfoque moderno */
+}
+
+.modal.show {
+  display: block;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 25px 35px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 400;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  animation: modal-fade-in 0.35s ease forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  border: 1px solid #e0e0e0;
+}
+
+/* Responsivo: para telas pequenas, top e left 30% */
+@media (max-width: 600px) {
+  .modal-content {
+    top: 30%;
+    left: 30%;
+  }
+
+  .sidebar-logo .logo {
+    width: 80px;
+  }
+}
+
+.fechar-modal {
+  position: absolute;
+  top: 12px;
+  right: -44px;
+  background: transparent;
+  border: none;
+  width: 32px;      /* tamanho do botão */
+  height: 32px;
+  cursor: pointer;
+  padding: 0;
+  z-index: 500;
+  background-image: url('https://github.com/SouzaTI/GestaoInsumos/blob/main/x.png?raw=true');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: filter 0.3s;
+}
+
+.fechar-modal:hover {
+  filter: brightness(0.7);
+}
+
+
+/* Título */
+.modal h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Select Produto */
+.select-produto {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+.select-produto:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.5);
+}
+
+/* Botões container */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Botões */
+.btn-confirmar,
+.btn-cancelar {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Confirmar */
+.btn-confirmar {
+  background-color: #28a745;
+  color: white;
+}
+.btn-confirmar:hover,
+.btn-confirmar:focus {
+  background-color: #218838;
+  box-shadow: 0 6px 14px rgba(33, 136, 56, 0.6);
+  outline: none;
+}
+
+/* Cancelar */
+.btn-cancelar {
+  background-color: #dc3545;
+  color: white;
+}
+.btn-cancelar:hover,
+.btn-cancelar:focus {
+  background-color: #c82333;
+  box-shadow: 0 6px 14px rgba(200, 35, 51, 0.6);
+  outline: none;
+}
+
+/* Animação */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translate(-50%, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+.form-baixas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px; /* campo vai ocupar pelo menos 200px e crescer se sobrar espaço */
+  min-width: 200px;
+}
+
+.form-row.full-width {
+  flex-basis: 100%;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #2a8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1a6;
+}
+
+#baixas form + h3 {
+  margin-top: 30px;      /* espaço acima */
+  font-size: 1.8em;      /* aumentar tamanho */
+  color: #000000;        /* cor azul estilizada */
+  font-weight: 700;      /* deixar negrito */
+  display: flex;
+  align-items: center;
+  gap: 8px;              /* espaçamento entre emoji e texto */
+}
+
+/* Estilo para a aba Produtos */
+#produtos {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#produtos h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2d5ca8;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#produtos table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Garante que todas as colunas tenham tamanho fixo */
+}
+
+#produtos th, #produtos td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#produtos th {
+  background-color: #2d5ca8;
+  color: white;
+}
+
+#produtos td {
+  background-color: #f9f9f9;
+}
+
+/* Estilo específico para a coluna de observações */
+#produtos td.observacao {
+  max-width: 250px; /* Limita a largura da célula */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Botão padrão */
+#produtos button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#produtos button:hover {
+  background-color: #0056b3;
+}
+
+/* Para telas maiores, aumente a altura mínima do container principal */
+@media (min-height: 900px) {
+  .main-box {
+    height: auto;           /* Permite que a altura seja definida pelo conteúdo */
+    min-height: 900px;       /* Garante que, no mínimo, terá 900px */
+  }
+}
+
+/* Centraliza todos os cabeçalhos */
+#tabelaEntradas th {
+  text-align: center;
+}
+
+/* Centraliza todas as células por padrão */
+#tabelaEntradas td {
+  text-align: center;
+}
+
+/* Alinhe à esquerda apenas as colunas desejadas (exemplo: Produto e Departamento) */
+#tabelaEntradas td:nth-child(1),  /* Produto */
+#tabelaEntradas td:nth-child(3) { /* Departamento */
+  text-align: left;
+}
+
+/* Centraliza todos os cabeçalhos da tabela de baixas */
+#tabelaSolicitacoes th {
+  text-align: center;
+}
+
+/* Centraliza todas as células por padrão */
+#tabelaSolicitacoes td {
+  text-align: center;
+}
+
+/* Alinhe à esquerda as colunas desejadas: Produto (1), Solicitante (3), Setor (4), Descrição (5) */
+#tabelaSolicitacoes td:nth-child(1),  /* Produto */
+#tabelaSolicitacoes td:nth-child(3),  /* Solicitante */
+#tabelaSolicitacoes td:nth-child(4),  /* Setor */
+#tabelaSolicitacoes td:nth-child(5) { /* Descrição */
+  text-align: left;
+}
+
+/* Filtros da tabela de baixas: tamanho compacto e alinhamento */
+#tabelaSolicitacoes thead select {
+  width: 100%;
+  min-width: 80px;
+  max-width: 140px;
+  padding: 4px 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 0;
+}
+
+#tabelaSolicitacoes thead input[type="date"] {
+  width: 100%;
+  min-width: 80px;
+  max-width: 140px;
+  padding: 2px 4px;
+  font-size: 10px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 0;
+}

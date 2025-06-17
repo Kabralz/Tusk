@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Souza Atacado Distribuidor</title>
+  <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <header>
+      <img src="https://raw.githubusercontent.com/SouzaTI/GestaoInsumos/09920a25c8748eb1a50c655ae0ef2822556611b2/Logo.svg" alt="Logo Souza" class="logo">
+    </header>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <label for="nome">Usuário:</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu usuário" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <footer>
+      <p>&copy; Comercial Souza. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+</body>
+</html>

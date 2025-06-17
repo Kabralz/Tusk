@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema - Souza Atacado Distribuidor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  
+  <div class="container">
+    <div class="main-box">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <img src="https://raw.githubusercontent.com/SouzaTI/GestaoInsumos/09920a25c8748eb1a50c655ae0ef2822556611b2/Logo.svg" alt="Logo Souza" class="logo">
+        </div>
+        <nav>
+          <!-- Todas as abas visíveis para todos os usuários -->
+          <a onclick="mostrarAba('estoque')">
+            <img src="https://github.com/SouzaTI/GestaoInsumos/blob/main/estoque-pronto.png?raw=true" alt="Estoque" width="24">
+            ESTOQUE
+          </a>
+          <a onclick="mostrarAba('baixas')">
+            <img src="https://github.com/SouzaTI/GestaoInsumos/blob/main/seta-para-baixo.png?raw=true" alt="Baixas" width="24">
+            BAIXAS
+          </a>
+          <a onclick="mostrarAba('produtos')">
+            <img src="https://github.com/SouzaTI/GestaoInsumos/blob/main/caixa-de-entrada.png?raw=true" alt="Entradas" width="24">
+            ENTRADAS
+          </a>
+        </nav>
+      </aside>
+
+      <div class="content">
+        <!-- Aba: Estoque -->
+        <div id="estoque">
+          <h2 class="titulo-aba">📦 Gestão de Insumos 📦</h2>
+          <form onsubmit="registrarInsumo(event)" class="form-container"> 
+            <div class="form-campos">
+              <select id="produto" required>
+                <option disabled selected value="">Selecione um produto</option>
+              </select>
+              <input type="number" placeholder="Quantidade" id="quantidade" required />
+              <input type="number" placeholder="Estoque mínimo (opcional)" id="estoqueMinimo" />
+              <select id="tipo" onchange="toggleCamposTipo()">
+                <option value="entrada">ENTRADA</option>
+                <option value="saida">SAÍDA</option>
+              </select>
+              <!-- Campo comum para identificar setor/departamento -->
+              <input type="text" placeholder="Setor / Departamento" id="destino" required />
+              
+              <!-- Campos adicionais para Entrada -->
+              <div id="campos-entrada" style="display: none;">
+                <!-- Preço por Unidade agora é opcional -->
+                <input type="number" step="0.01" placeholder="Preço por Unidade (opcional)" id="preco-insumo" />
+
+              </div>
+              
+              <!-- Campos adicionais para Saída (organizados em duas colunas) -->
+              <div id="campos-saida" style="display: none;">
+                <input type="text" placeholder="Solicitante" id="solicitante-estoque" required />
+                <input type="text" placeholder="Descrição" id="descricao-estoque" required />
+                <select id="urgencia-estoque" required>
+                  <option disabled selected value="">Selecione a urgência</option>
+                  <option value="baixa">Baixa</option>
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </div>
+              
+              <button type="submit" class="btn btn-verde">Registrar</button>
+            </div>
+            <div class="botoes-acao">
+              <button type="button" onclick="abrirModalExcluir()" class="btn btn-vermelho">
+                Excluir produto
+              </button>
+            </div>
+          </form>
+
+          <!-- Modal Excluir Produto -->
+          <div id="modalExcluir" class="modal" onclick="fecharModalExcluirFora(event)">
+            <div class="modal-content">
+              <button class="fechar-modal" onclick="fecharModalExcluir()" aria-label="Fechar modal"></button>
+              <h3>Excluir Produto</h3>
+              <select id="produtoExcluir">
+                <option disabled selected value="">Selecione um produto</option>
+              </select>
+              <button onclick="confirmarExclusao()" class="btn-confirmar">Confirmar exclusão</button>
+              <button onclick="fecharModalExcluir()" class="btn-cancelar">Cancelar</button>
+            </div>
+          </div>
+          
+          <!-- Tabela de Estoque -->
+          <table id="tabelaEstoque">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Estoque Atual</th>
+                <th>Estoque Mínimo</th>
+                <th>Última Movimentação</th>
+            
+              </tr>
+            </thead>
+            <tbody id="estoqueTabela">
+              {% for produto in estoque %}
+              <tr data-produto-id="{{ produto.id }}">
+                <td>{{ produto.nome }}</td>
+                <td class="estoque-atual">{{ produto.estoque }}</td>
+                <td class="estoque-minimo">{{ produto.minimo }}</td>
+                <td class="ultima-movimentacao">{{ produto.data }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <input type="date" id="filtroDataEstoque" style="margin-left:10px;">
+          <button class="btn-relatorio" onclick="gerarRelatorioComFiltro('tabelaEstoque', 'filtroDataEstoque')">Gerar Relatório</button>
+          
+        </div>
+
+        <!-- Aba: Baixas -->
+        <div id="baixas" class="hidden">
+          <h2 class="titulo-aba">❌ Registro de Baixas ❌</h2>
+          <table id="tabelaSolicitacoes">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Solicitante</th>
+                <th>Departamento</th>
+                <th>Descrição</th>
+                <th>Tipo de Entrada</th>
+                <th>Urgência</th>
+                <th>Status</th>
+                <th>Hora</th>
+                <th>Usuário</th>
+              </tr>
+              <tr>
+                <th><select id="filtroProdutoBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th></th>
+                <th><select id="filtroSolicitanteBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th><select id="filtroDepartamentoBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th></th>
+                <th><select id="filtroTipoEntradaBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th><select id="filtroUrgenciaBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th><select id="filtroStatusBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th><select id="filtroHoraBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+                <th><select id="filtroUsuarioBaixa" onchange="filtrarTabelaBaixas()"><option value="">Todos</option></select></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Linhas inseridas via JavaScript -->
+            </tbody>
+          </table>
+          <!-- Removido o input de data -->
+          <button class="btn-relatorio" onclick="gerarRelatorioTabelaFiltrada('tabelaSolicitacoes')">Gerar Relatório</button>
+        </div>
+
+        <!-- Aba: Produtos -->
+        <div id="produtos" class="hidden">
+          <h2 class="titulo-aba">✅ Registro de Entradas (Histórico) ✅</h2>
+          <table id="tabelaEntradas">
+            <thead>
+              <tr>
+                <th class="text-left">Produto</th>
+                <th class="numeric">Quantidade</th>
+                <th class="text-left">Departamento</th>
+                <th class="numeric">Preço Unitário</th>
+                <th class="numeric">Total</th>
+                <th class="text-left">Tipo de Entrada</th>
+                <th class="data">Hora da Entrada</th>
+                <th>Usuário</th> <!-- NOVA COLUNA -->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Linhas inseridas via JavaScript -->
+              <tr>
+                <td class="text-left">Nome do Produto</td>
+                <td class="numeric">10</td>
+                <td class="text-left">Financeiro</td>
+                <td class="numeric">20.00</td>
+                <td class="numeric">200.00</td>
+                <td class="data">21/05/2025 14:30</td>
+                <td class="status">Comprado</td>
+              </tr>
+            </tbody>
+          </table>
+          <input type="date" id="filtroDataEntradas" style="margin-left:10px;">
+          <button class="btn-relatorio" onclick="gerarRelatorioComFiltro('tabelaEntradas', 'filtroDataEntradas')">Gerar Relatório</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</body>
+</html>

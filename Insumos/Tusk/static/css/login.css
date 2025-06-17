@@ -1,0 +1,148 @@
+/* Estilo base do corpo da página */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: url("https://github.com/SouzaTI/GestaoInsumos/blob/main/Login.png?raw=true") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Container principal com overlay */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(2px);
+  color: #fff;
+  padding: 16px;
+}
+
+/* Cabeçalho com logo e slogan */
+.login-container header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  gap: 6px;
+}
+
+.login-container header img.logo {
+  height: 60px;      /* ajuste conforme desejar */
+  width: auto;
+  display: block;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+
+.login-container header img.slogan {
+  height: 150px;
+}
+
+/* Estilo do formulário de login */
+.login-container form {
+  background: rgba(255, 255, 255, 0.98);
+  padding: 30px 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.15);
+  width: 340px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.login-container form:hover {
+  transform: translateY(-2px);
+}
+
+/* Labels */
+.login-container form label {
+  font-size: 14.5px;
+  color: #2d5ca8;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Inputs */
+.login-container form input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #ccd6e4;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #f5f9ff;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.login-container form input:focus {
+  border-color: #2d5ca8;
+  outline: none;
+  box-shadow: 0 0 6px rgba(45, 92, 168, 0.15);
+}
+
+/* Botão */
+.login-container form button {
+  padding: 13px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #2d5ca8, #1a3f7a);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(45, 92, 168, 0.12);
+}
+
+.login-container form button:hover {
+  background: linear-gradient(90deg, #1a3f7a, #2d5ca8);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(45, 92, 168, 0.18);
+}
+
+/* Mensagens de erro */
+.flash-messages {
+  margin-top: 16px;
+  background: #ffeaea;
+  color: #b00000;
+  padding: 12px;
+  border-radius: 7px;
+  font-size: 14px;
+  border: 1px solid #ffb3b3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Rodapé */
+.login-container footer {
+  margin-top: 36px;
+  font-size: 13px;
+  color: #fff;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.login-container footer:hover {
+  opacity: 1;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .login-container form {
+    padding: 18px 12px;
+    width: 100%;
+  }
+
+  .login-container header img.logo {
+    width: 120px;
+  }
+
+  .login-container header img.slogan {
+    height: 28px;
+  }
+}

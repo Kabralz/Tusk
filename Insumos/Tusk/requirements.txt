@@ -1,0 +1,14 @@
+flask
+pandas
+openpyxl
+pronto
+flask
+pandas
+openpyxl
+requests
+gspread
+oauth2client
+python-dotenv
+flask-mail
+reportlab
+pyjwt
