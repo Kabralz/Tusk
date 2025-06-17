@@ -17,22 +17,22 @@ O sistema foi desenvolvido para uso interno do **Souza Atacado Distribuidor**, p
 
 ## 🖼️ Screenshots e Explicações
 
-As imagens a seguir ilustram o sistema e suas funcionalidades, organizadas na pasta raiz `estrutura final`:
+As imagens a seguir ilustram o sistema e suas funcionalidades, organizadas na pasta raiz `estrutura_final`:
 
 1. **Modelo Antigo de Gestão:** Contextualização geral com o modelo anterior de controle.
-   ![Modelo Antigo](./estrutura final/1-modelo-antigo.png)
+   ![Modelo Antigo](./estrutura_final/1-modelo-antigo.png)
 
 2. **Novo Modelo de Gestão e Tela de Login:** Explicação do novo fluxo e interface inicial do sistema.
-   ![Novo Modelo e Login](./estrutura final/2-novo-modelo-login.png)
+   ![Novo Modelo e Login](./estrutura_final/2-novo-modelo-login.png)
 
 3. **Tela de Estoque:** Visão geral do controle e monitoramento dos produtos em estoque.
-   ![Tela de Estoque](./estrutura final/3-tela-estoque.png)
+   ![Tela de Estoque](./estrutura_final/3-tela-estoque.png)
 
 4. **Tela de Baixas:** Registro detalhado das saídas de insumos com informações complementares.
-   ![Tela de Baixas](./estrutura final/4-tela-baixas.png)
+   ![Tela de Baixas](./estrutura_final/4-tela-baixas.png)
 
 5. **Tela de Entradas:** Histórico e controle das entradas de insumos no sistema.
-   ![Tela de Entradas](./estrutura final/5-tela-entradas.png)
+   ![Tela de Entradas](./estrutura_final/5-tela-entradas.png)
 
 ---
 
